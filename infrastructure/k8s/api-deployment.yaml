@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enemy-soldiers-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: enemy-soldiers-api
+  template:
+    metadata:
+      labels:
+        app: enemy-soldiers-api
+    spec:
+      containers:
+        - name: api
+          image: shmuelgross/enemy-soldiers-api:latest
+          imagePullPolicy: Always
+          env:
+            - name: MONGODB_URI
+              value: mongodb://mongodb:27017
+            - name: DB_NAME
+              value: enemy_soldiers
+            - name: COLLECTION_NAME
+              value: soldier_details
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"

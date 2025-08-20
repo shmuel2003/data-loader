@@ -1,0 +1,12 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: enemy-soldiers-api
+spec:
+  to:
+    kind: Service
+    name: enemy-soldiers-api
+  port:
+    targetPort: http
+  tls:
+    termination: edge
